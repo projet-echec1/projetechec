@@ -1,25 +1,13 @@
-def can_capture(board, row1, col1, row2, col2):
-    piece = board[row1][col1]
-    if piece == "-":
+fonction qui détermine si une pièce est capturable lors d'un mouvement: 
+
+
+
+def est_capturable(echiquier, depart, arrivee):
+    piece_depart = echiquier[depart[0]][depart[1]]
+    piece_arrivee = echiquier[arrivee[0]][arrivee[1]]
+    if piece_arrivee is None:
         return False
-    if get_piece_type(piece) == "P":
-        return can_capture_pawn(board, row1, col1, row2, col2)
-    if get_piece_type(piece) == "N":
-        return can_capture_knight(board, row1, col1, row2, col2)
-    if get_piece_type(piece) == "B":
-        return can_capture_bishop(board, row1, col1, row2, col2)
-    if get_piece_type(piece) == "R":
-        return can_capture_rook(board, row1, col1, row2, col2)
-    if get_piece_type(piece) == "Q":
-        return can_capture_queen(board, row1, col1, row2, col2)
-    if get_piece_type(piece) == "K":
-        return can_capture_king(board, row1, col1, row2, col2)
-
-def can_capture_knight(board, row1, col1, row2, col2):
-    dr = abs(row2 - row1)
-    dc = abs(col2 - col1)
-    return dr == 2 and dc == 1 or dr == 1 and dc == 2
-
-# Les autres fonctions can_capture pour les autres pièces...
-
-
+    elif piece_depart.couleur != piece_arrivee.couleur:
+        return True
+    else:
+        return False
