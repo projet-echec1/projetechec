@@ -45,11 +45,9 @@ py
                     piece=self.obtenir_piece(i,j)
                     if piece.couleur==couleur and 
 
-
 #Mouvements
 
-
-    def movesjoueur (self):
+def choixmouvementjoueur (self):
         ligne=int(input("Ligne de jeu"))
         colonne=int(input("Colonne de jeu"))
         return [ligne,colonne]
@@ -59,23 +57,24 @@ py
         piececolonne=input(int("Position de la pièce en colonne à jouer"))
         
         return [pieceligne,piececolonne]
-
-
-    def cavalier(self): #Le cavalier se déplace en L s'est à dire +/- 2 en largeur et +/- 1 en longueur et inversement
-        
-            cavalier=[[self.choixpiece[0]+2,self.choixpiece[0]+1],[self.choixpiece[0]+2,self.choixpiece[0]-1],[self.choixpiece[0]-2,self.choixpiece[0]-1],[self.choixpiece[0]-2,self.choixpiece[0]+1],[self.choixpiece[0]+1,self.choixpiece[0]+2],[self.choixpiece[0]+1,self.choixpiece[0]-2],[self.choixpiece[0]-1,self.choixpiece[0]-2],[self.choixpiece[0]-1,self.choixpiece[0]+2]]]
     
- 
-   def pion(self):
-        if self.turn==1 or self.turn==2: 
-            pion=[[self.choixpiece[0]+1,self.choixpiece[0]+1],[self.choixpiece[0]+2,self.choixpiece[0]+2]]
+    def piecemouvementpossible(self,position): #position de départ
+        x=obtenir_piece(self,position)
+        if x.symbole==N:
+            return cavalier(self,position)
+        elif x.symbole==R:
+            return rook(self,position)
+        elif x.symbole==B:
+            return fou(self,position)
+        elif x.symbole==K:
+            return roi(self,position)
+        elif x.symbole==Q:
+            return reine(self,position)
+        elif x.symbole==P:
+            return pion(self,position)
         else:
-            pion=[[self.choixpiece[0]+1,self.choixpiece[0]+1]]
-        return pion
-    
-    def tour(self):
-        tour
-        for i in range (1,8):
+            print("Case vide recommencer")
+            piecemouvementpossible(self,position)
         
 
            
