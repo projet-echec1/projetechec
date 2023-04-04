@@ -1,4 +1,4 @@
- class Piece:
+ class Piece:   #BACDS
             def __init__(self,couleur,symbole):
             self.symbole=symbole
             self.couleur=couleur
@@ -6,7 +6,7 @@
 
 
 
-class ChessGame:
+class ChessGame: #BACDS
     
     def __init__(self):
 
@@ -22,28 +22,20 @@ class ChessGame:
                       [Piece('blanc', 'R'), Piece('blanc', 'N'), Piece('blanc', 'B'), Piece('blanc', 'Q'), Piece('blanc', 'K'), Piece('blanc', 'B'), Piece('blanc', 'N'), Piece('blanc', 'R')] ] 
 
         self.tour = 'blanc'
-py
 
 
 
 
-    def obtenir_piece(self, position):
+    def obtenir_piece(self, position): #BACDS
 
         ligne, colonne = position 
 
         return self.echiquier[ligne][colonne]
-    
-
-    class Piece:
-        def __init__(self,couleur,symbole):
-            self.symbole=symbole
-        self.couleur=couleur    
-    
-        def case_roi(self):
-            for i in range(8):
-                for j in range(8):
-                    piece=self.obtenir_piece(i,j)
-                    if piece.couleur==couleur and 
+    def case_roi(self):
+       for i in range(8):
+          for j in range(8):
+           piece=self.obtenir_piece(i,j)
+            if piece.couleur==couleur and 
 
 #Mouvements
 
