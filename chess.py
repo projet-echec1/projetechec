@@ -59,8 +59,8 @@ py
  
     def deplacer_piece(self,départ,arrivé):
         piece=self.obtenir_piece(départ)
-        self.echequier[départ[0]][départ[1]]=None
-        self.echequier[arrivé[0][arrivé[1]]=piece
+        self.echiquier[départ[0]][départ[1]]=None
+        self.echiquier[arrivée[0][arrivée[1]]=piece
 
         
 
