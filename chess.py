@@ -22,7 +22,6 @@ class ChessGame:
                       [Piece('blanc', 'R'), Piece('blanc', 'N'), Piece('blanc', 'B'), Piece('blanc', 'Q'), Piece('blanc', 'K'), Piece('blanc', 'B'), Piece('blanc', 'N'), Piece('blanc', 'R')] ] 
 
         self.tour = 'blanc'
-py
 
 
 
