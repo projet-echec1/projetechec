@@ -55,3 +55,44 @@ def mettre_a_jour_jeu(self, position_depart, position_arrivee):
     else:
         print("Impossible de capturer une pièce de même couleur !")
 
+
+
+
+
+
+
+
+
+ENREGISTER L'ÉTAT DE L'ÉCHIQUIER
+
+def sauvegarder_etat_echiquier(echiquier):
+    etat_echiquier = []
+
+    for ligne in echiquier:
+        ligne_echiquier = []
+        for piece in ligne:
+            if piece:
+                ligne_echiquier.append((piece.couleur, piece.symbole))
+            else:
+                ligne_echiquier.append(None)
+        etat_echiquier.append(ligne_echiquier)
+
+    return etat_echiquier
+
+
+EXEMPLE:
+
+def sauvegarder_etat_echiquier(echiquier):
+    etat_echiquier = []
+
+    for ligne in echiquier:
+        ligne_echiquier = []
+        for piece in ligne:
+            if piece:
+                ligne_echiquier.append((piece.couleur, piece.symbole))
+            else:
+                ligne_echiquier.append(None)
+        etat_echiquier.append(ligne_echiquier)
+
+    return etat_echiquier
+
