@@ -1,9 +1,25 @@
-def get_knight_moves(board, row, col, color):
-  moves = []
-  directions = [(2, 1), (1, 2), (-1, 2), (-2, 1), (-2, -1), (-1, -2), (1, -2), (2, -1)]
-  for dr, dc in directions:
-    r, c = row + dr, col + dc
-    if is_inside_board(r, c):
-        if is_empty(board, r, c) or is_opposite_color(board, r, c, color):
-            moves.append((r, c))
-  return moves
+def can_capture(board, row1, col1, row2, col2):
+    piece = board[row1][col1]
+    if piece == "-":
+        return False
+    if get_piece_type(piece) == "P":
+        return can_capture_pawn(board, row1, col1, row2, col2)
+    if get_piece_type(piece) == "N":
+        return can_capture_knight(board, row1, col1, row2, col2)
+    if get_piece_type(piece) == "B":
+        return can_capture_bishop(board, row1, col1, row2, col2)
+    if get_piece_type(piece) == "R":
+        return can_capture_rook(board, row1, col1, row2, col2)
+    if get_piece_type(piece) == "Q":
+        return can_capture_queen(board, row1, col1, row2, col2)
+    if get_piece_type(piece) == "K":
+        return can_capture_king(board, row1, col1, row2, col2)
+
+def can_capture_knight(board, row1, col1, row2, col2):
+    dr = abs(row2 - row1)
+    dc = abs(col2 - col1)
+    return dr == 2 and dc == 1 or dr == 1 and dc == 2
+
+# Les autres fonctions can_capture pour les autres pièces...
+
+
