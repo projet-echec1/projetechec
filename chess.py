@@ -1,12 +1,16 @@
-class ChessGame:
-    
-    def __init__(self):
-
-        class Piece:
+ class Piece:
             def __init__(self,couleur,symbole):
             self.symbole=symbole
             self.couleur=couleur
  
+
+
+
+class ChessGame:
+    
+    def __init__(self):
+
+       
 
         self.echiquier = [ [Piece('noir', 'R'), Piece('noir', 'N'), Piece('noir', 'B'), Piece('noir', 'Q'), Piece('noir', 'K'), Piece('noir', 'B'), Piece('noir', 'N'), Piece('noir', 'R')]
                       , [Piece('noir', 'P'), Piece('noir', 'P'), Piece('noir', 'P'), Piece('noir', 'P'), Piece('noir', 'P'), Piece('noir', 'P'), Piece('noir', 'P'), Piece('noir', 'P')],
