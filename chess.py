@@ -1,9 +1,12 @@
-class Piece: #BACDS
+ class Piece:
             def __init__(self,couleur,symbole):
-                self.symbole=symbole
-                self.couleur=couleur
+            self.symbole=symbole
+            self.couleur=couleur
+ 
 
-class ChessGame: #BACDS
+
+
+class ChessGame:
     
     def __init__(self):
 
@@ -19,7 +22,7 @@ class ChessGame: #BACDS
                       [Piece('blanc', 'R'), Piece('blanc', 'N'), Piece('blanc', 'B'), Piece('blanc', 'Q'), Piece('blanc', 'K'), Piece('blanc', 'B'), Piece('blanc', 'N'), Piece('blanc', 'R')] ] 
 
         self.tour = 'blanc'
-
+py
 
 
 
@@ -31,31 +34,49 @@ class ChessGame: #BACDS
         return self.echiquier[ligne][colonne]
     
 
-   
-    
-        def case_roi(self):
-            for i in range(8):
-                for j in range(8):
-                    piece=self.obtenir_piece(i,j)
-                    if piece.couleur==couleur and 
-
+    def case_roi(self,couleur):
+        for i in range(8):
+            for j in range(8):
+                piece=self.obtenir_piece(i,j)
+                if piece.couleur==couleur and piece.symbole=='R':
+                    return(i,j)
+            
+            
+     def echec(self):
+        roi_case=self.case_roi(self.tour)
+        for i in range(8):
+            for j in range(8):
+                piece=self.obtenir_piece(i,j)
+                if piece != None and piece.couleur!= self.tour:  #on s'assure que la piece qui met en echecest de la bonne couleur et qu'elle existe
+                    if self.coup_legal((i,j),roi_case):          #on utilise la fonction qui verifie si le mouvement de la piece est autorisé
+                        return True
+        return False     
+            
 
 #Mouvements
 
 
-    def choixmouvementjoueur (self): #Projet-echec1
+ 
+    def deplacer_piece(self,départ,arrivé):
+        piece=self.obtenir_piece(départ)
+        self.echequier[départ[0]][départ[1]]=None
+        self.echequier[arrivé[0][arrivé[1]]=piece
+
+        
+
+def choixmouvementjoueur (self):
         ligne=int(input("Ligne de jeu"))
         colonne=int(input("Colonne de jeu"))
         return [ligne,colonne]
 
-    def choixpiece(self): #projet-echec1
+    def choixpiece(self):
         pieceligne=input(int("Position en ligne de la pièce à jouer")) #Pour éviter confusions  demander la case actuelle de la pièce
         piececolonne=input(int("Position de la pièce en colonne à jouer"))
         
         return [pieceligne,piececolonne]
     
-    def mouvementpiece(self,position): #position de départ -projet-echec1
-        x=self.obtenir_piece(self,position)
+    def piecemouvementpossible(self,position): #position de départ
+        x=obtenir_piece(self,position)
         if x.symbole==N:
             return cavalier(self,position)
         elif x.symbole==R:
@@ -69,11 +90,33 @@ class ChessGame: #BACDS
         elif x.symbole==P:
             return pion(self,position)
         else:
-            print("Case vide")
+            print("Case vide recommencer")
             piecemouvementpossible(self,position)
         
+ def echec_et_mat(self):
+        if self.echec==False:  #cas le plus simple où il n'y a pas d'échec au roi
+            return False:
+        for i in range(8):
+            for j in range(8):
+                piece=self.obtenir_piece(i,j)
+                if piece !=None and piece.couleur==self.tour:
+                    for x in range(8):
+                        for y in range(8):
+                            if self.coup_legal((i,j),(x,y))==True:
+                                piece_arrivee_enregistré=self.obtenir_piece(x,y)
+                                self.deplacer_piece((i,j),(x,y))
+                                echec=self.echec()
+                                self.deplacer_piece((x,y),(i,j))
+                                self.definir_piece((x,y),piece_arrivee_enregistré)
+                                if echec==False:
+                                       return False
+        return True
+                                                
+                                
+                                
+           
 
-    def cavalier(self,position): #projet-echec
-                return cavalier=[[position[0]+2,position[1]+1],[position[0]+2,position[0]-1],[position[0]-2,position[0]-1],[position[0]-2,position[0]+1],[position[0]+1,position[0]+2],[position[0]+1,position[0]-2],[position[0]-1,position[0]-2],[position[0]-1,position[0]+2]]
-         
-        
+
+
+
+
