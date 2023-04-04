@@ -91,8 +91,8 @@ def choixmouvementjoueur (self):
         else:
             print("Case vide recommencer")
             piecemouvementpossible(self,position)
-        
- def echec_et_mat(self):
+                       
+    def echec_et_mat(self):
         if self.echec==False:  #cas le plus simple où il n'y a pas d'échec au roi
             return False:
         for i in range(8):
@@ -105,11 +105,16 @@ def choixmouvementjoueur (self):
                                 piece_arrivee_enregistré=self.obtenir_piece(x,y)
                                 self.deplacer_piece((i,j),(x,y))
                                 echec=self.echec()
-                                self.deplacer_piece((x,y),(i,j))
-                                self.definir_piece((x,y),piece_arrivee_enregistré)
                                 if echec==False:
                                        return False
+
+                                
         return True
+                                                
+                                
+                                
+                    
+                    
                                                 
                                 
                                 
