@@ -1,0 +1,9 @@
+def get_knight_moves(board, row, col, color):
+  moves = []
+  directions = [(2, 1), (1, 2), (-1, 2), (-2, 1), (-2, -1), (-1, -2), (1, -2), (2, -1)]
+  for dr, dc in directions:
+    r, c = row + dr, col + dc
+    if is_inside_board(r, c):
+        if is_empty(board, r, c) or is_opposite_color(board, r, c, color):
+            moves.append((r, c))
+  return moves
