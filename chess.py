@@ -21,17 +21,15 @@ class ChessGame:
                       [Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P')],
                       [Piece('blanc', 'R'), Piece('blanc', 'N'), Piece('blanc', 'B'), Piece('blanc', 'Q'), Piece('blanc', 'K'), Piece('blanc', 'B'), Piece('blanc', 'N'), Piece('blanc', 'R')] ] 
 
-    def tour(self):
-        i=0
-        while self.echec_et_mat==False:
-            i=i+1
-            if type(i/2)==float:
-                return ('blanc')
-            else:
-                return('noir')
-            
+    
+        self.tour=='blanc'
 
-
+    def changement_tour(): #projet-echec1
+        if self.tour=='blanc':
+            self.tour='noir'
+        else:
+            self.tour='blanc' #Deux valeurs possibles uniquement 'noir' ou 'blanc'
+    
 
 
     def obtenir_piece(self, position):
