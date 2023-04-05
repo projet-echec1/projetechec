@@ -1,7 +1,7 @@
- class Piece:
+class Piece:
             def __init__(self,couleur,symbole):
-            self.symbole=symbole
-            self.couleur=couleur
+                self.symbole=symbole
+                self.couleur=couleur
  
 
 
@@ -21,7 +21,15 @@ class ChessGame:
                       [Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P')],
                       [Piece('blanc', 'R'), Piece('blanc', 'N'), Piece('blanc', 'B'), Piece('blanc', 'Q'), Piece('blanc', 'K'), Piece('blanc', 'B'), Piece('blanc', 'N'), Piece('blanc', 'R')] ] 
 
-        self.tour = 'blanc'
+    def tour(self):
+        i=0
+        while self.echec_et_mat==False:
+            i=i+1
+            if type(i/2)==float:
+                return ('blanc')
+            else:
+                return('noir')
+            
 
 
 
@@ -41,7 +49,7 @@ class ChessGame:
                     return(i,j)
             
             
-     def echec(self):
+    def echec(self):
         roi_case=self.case_roi(self.tour)
         for i in range(8):
             for j in range(8):
@@ -56,10 +64,10 @@ class ChessGame:
 
 
  
-    def deplacer_piece(self,départ,arrivé):
+    def deplacer_piece(self,départ,arrivée):
         piece=self.obtenir_piece(départ)
         self.echiquier[départ[0]][départ[1]]=None
-        self.echiquier[arrivée[0][arrivée[1]]=piece
+        self.echiquier[arrivée[0]][arrivée[1]]=piece
 
         
 
@@ -68,13 +76,13 @@ def choixmouvementjoueur (self):
         colonne=int(input("Colonne de jeu"))
         return [ligne,colonne]
 
-    def choixpiece(self):
-        pieceligne=input(int("Position en ligne de la pièce à jouer")) #Pour éviter confusions  demander la case actuelle de la pièce
-        piececolonne=input(int("Position de la pièce en colonne à jouer"))
+def choixpiece(self):
+    pieceligne=input(int("Position en ligne de la pièce à jouer")) #Pour éviter confusions  demander la case actuelle de la pièce
+    piececolonne=input(int("Position de la pièce en colonne à jouer"))
         
-        return [pieceligne,piececolonne]
+    return [pieceligne,piececolonne]
     
-    def piecemouvementpossible(self,position): #position de départ
+def piecemouvementpossible(self,position): #position de départ
         x=obtenir_piece(self,position)
         if x.symbole==N:
             return cavalier(self,position)
@@ -89,24 +97,24 @@ def choixmouvementjoueur (self):
         elif x.symbole==P:
             return pion(self,position)
         else:
-            print("Case vide recommencer")
+            print("Case vide recommencez")
             piecemouvementpossible(self,position)
                        
-    def echec_et_mat(self):
-        if self.echec==False:  #cas le plus simple où il n'y a pas d'échec au roi
-            return False:
-        for i in range(8):
-            for j in range(8):
-                piece=self.obtenir_piece(i,j)
-                if piece !=None and piece.couleur==self.tour:
-                    for x in range(8):
-                        for y in range(8):
-                            if self.coup_legal((i,j),(x,y))==True:
-                                piece_arrivee_enregistré=self.obtenir_piece(x,y)
-                                self.deplacer_piece((i,j),(x,y))
-                                echec=self.echec()
-                                if echec==False:
-                                       return False
+def echec_et_mat(self):
+    if self.echec==False:  #cas le plus simple où il n'y a pas d'échec au roi
+        return False
+    for i in range(8):
+        for j in range(8):
+            piece=self.obtenir_piece(i,j)
+            if piece !=None and piece.couleur==self.tour:
+                for x in range(8):
+                    for y in range(8):
+                        if self.coup_legal((i,j),(x,y))==True:
+                            piece_arrivee_enregistré=self.obtenir_piece(x,y)
+                            self.deplacer_piece((i,j),(x,y))
+                            echec=self.echec()
+                            if echec==False:
+                                    return False
 
                                 
         return True
