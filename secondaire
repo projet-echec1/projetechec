@@ -1,4 +1,4 @@
-fonction qui détermine si une pièce est capturable lors d'un mouvement: 
+#fonction qui détermine si une pièce est capturable lors d'un mouvement: 
 
 
 
@@ -21,7 +21,7 @@ def capture_piece(self, position):
         return "La pièce a été capturée avec succès"
 
 
-pour mettre à jour le jeu:
+#pour mettre à jour le jeu:
 
 def mettre_a_jour_jeu(self, position_depart, position_arrivee):
     piece_depart = self.obtenir_piece(position_depart)
@@ -63,7 +63,7 @@ def mettre_a_jour_jeu(self, position_depart, position_arrivee):
 
 
 
-ENREGISTER L'ÉTAT DE L'ÉCHIQUIER
+#ENREGISTER L'ÉTAT DE L'ÉCHIQUIER
 
 def sauvegarder_etat_echiquier(echiquier):
     etat_echiquier = []
@@ -80,7 +80,7 @@ def sauvegarder_etat_echiquier(echiquier):
     return etat_echiquier
 
 
-EXEMPLE:
+#EXEMPLE:
 
 def sauvegarder_etat_echiquier(echiquier):
     etat_echiquier = []
