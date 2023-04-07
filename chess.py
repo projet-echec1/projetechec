@@ -22,21 +22,22 @@ class ChessGame:
                       [Piece('blanc', 'R'), Piece('blanc', 'N'), Piece('blanc', 'B'), Piece('blanc', 'Q'), Piece('blanc', 'K'), Piece('blanc', 'B'), Piece('blanc', 'N'), Piece('blanc', 'R')] ] 
 
     
-        self.tour=='blanc'
+        self.tour='blanc'
+        self.compteur=1
 
     def changement_tour(): #projet-echec1
         if self.tour=='blanc':
             self.tour='noir'
+            self.compteur+=1
         else:
             self.tour='blanc' #Deux valeurs possibles uniquement 'noir' ou 'blanc'
+            self.compteur+=1
     
-
-
-
+        
     def obtenir_piece(self, position):
 
         ligne, colonne = position 
-
+        
         return self.echiquier[ligne][colonne]
     
 
@@ -152,7 +153,8 @@ def fou(self,position):
     p1=[]
     p2=[]    
 
-    for j in range (len(t)):
+    for j in range (len(t)): 
+
         p1=p1+[t1[i]+diagonale[0],t2[i]+diagonale[1]]
         p2=p2+[t1[i]+antidiagonale[0],t2[i]+antidiagonale[1]]
     
@@ -171,4 +173,36 @@ def fou(self,position):
 
 
 def rook(self, position):
-    lines()
+    #On crée un système ligne colonne de longueur/largeur 1
+    ligne=[position[0]+1,position[1]]
+    colonne=[position[0],position[1]+1]
+
+    t1=[]
+    t2=[]
+    for i in range(len(t)):
+        t1=t1+[t[i]+x1[i],]
+        t2=t2+[t[i]+x2[i],]
+
+    p1=[]
+    p2=[]    
+
+    for j in range (len(t)): 
+
+        p1=p1+[t1[i]+ligne[0],t2[i]+ligne[1]]
+        p2=p2+[t1[i]+colonne[0],t2[i]+colonne[1]]
+    
+    possible=p1+p2
+
+    for i in range(len(possible)): #En faire une fonction pour plus tard 
+        if possible[i]==None:
+            continue
+        elif possible[i].couleur==self.couleur:
+            possible.pop(i)
+        else:
+            continue
+    
+    return possible
+
+
+
+
