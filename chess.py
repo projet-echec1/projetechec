@@ -118,13 +118,50 @@ def echec_et_mat(self):
         return True
                                                 
                                 
-def cavalier(self,position):
+def cavalier(self,position): #projet-echec1
     #Cavalier se déplace en L donc en colonne (+/-1) ou (+/-2) et en largeur (+/-1) ou (+/-2)
     possible=[[position[0]+1,position[1]+2], [position[0]-1,position[1]-2],[position[0]+1,position[1]-2],[position[0]-1,position[1]+2],[position[0]+2,position[1]+1],[position[0]-2,position[1]-1],[position[0]-2,position[1]+1],[position[0]+2,position[1]-1]]
 
-    for i in range(len(possible)):
+    for i in range(len(possible)): #En faire une fonction pour plus tard 
         if possible[i].couleur==self.couleur:
             possible.pop(i)
         else:
             continue
     return possible
+
+def fou(self,position):
+    #On crée un système de diagonale et d'antidiagonale d'unité 1
+    diagonale=[[position[0]+1,position[1]+1]]
+    antidiagonale=[[position[0]+1,position[1]-1]]
+
+    t=[0,1,2,3,4,5,6,7]
+    x1=self.position[0]-7 #On cherche à décaler l'incrémentation ici
+    x2=self.position[1]-7
+    
+
+
+    t1=[]
+    t2=[]
+    for i in range(len(t)):
+        t1=t1+[t[i]+x1,]
+        t2=t2+[t[i]+x2,]
+
+    p1=[]
+    p2=[]    
+
+    for j in range (len(t)):
+        p1=p1+[t1[i]+diagonale[0],t2[i]+diagonale[1]]
+        p2=p2+[t1[i]+antidiagonale[0],t2[i]+antidiagonale[1]]
+    
+    possible=p1+p2
+
+    for i in range(len(possible)): #En faire une fonction pour plus tard 
+        if possible[i].couleur==self.couleur:
+            possible.pop(i)
+        else:
+            continue
+    
+    return possible
+
+
+
