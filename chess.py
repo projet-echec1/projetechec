@@ -202,6 +202,12 @@ def rook(self, position):
             continue
     
     return possible
+ 
+
+def reine(self,position):
+    possible=[rook(self,position)+fou(self,position),]
+    return possible
+
 
 
 
