@@ -32,6 +32,7 @@ class ChessGame:
     
 
 
+
     def obtenir_piece(self, position):
 
         ligne, colonne = position 
@@ -123,7 +124,9 @@ def cavalier(self,position): #projet-echec1
     possible=[[position[0]+1,position[1]+2], [position[0]-1,position[1]-2],[position[0]+1,position[1]-2],[position[0]-1,position[1]+2],[position[0]+2,position[1]+1],[position[0]-2,position[1]-1],[position[0]-2,position[1]+1],[position[0]+2,position[1]-1]]
 
     for i in range(len(possible)): #En faire une fonction pour plus tard 
-        if possible[i].couleur==self.couleur:
+        if possible[i]==None:
+            continue
+        elif possible[i].couleur==self.couleur:
             possible.pop(i)
         else:
             continue
@@ -143,8 +146,8 @@ def fou(self,position):
     t1=[]
     t2=[]
     for i in range(len(t)):
-        t1=t1+[t[i]+x1,]
-        t2=t2+[t[i]+x2,]
+        t1=t1+[t[i]+x1[i],]
+        t2=t2+[t[i]+x2[i],]
 
     p1=[]
     p2=[]    
@@ -156,7 +159,9 @@ def fou(self,position):
     possible=p1+p2
 
     for i in range(len(possible)): #En faire une fonction pour plus tard 
-        if possible[i].couleur==self.couleur:
+        if possible[i]==None:
+            continue
+        elif possible[i].couleur==self.couleur:
             possible.pop(i)
         else:
             continue
@@ -165,3 +170,5 @@ def fou(self,position):
 
 
 
+def rook(self, position):
+    lines()
