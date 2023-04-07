@@ -234,6 +234,27 @@ class ChessGame:
                 continue
 
         return possible
+    
+    def pion(self,position):
+        if self.couleur=='blanc':
+            if self.compteur==1:
+                possible=[[position[0],position[1]+2],[position[0],position[1]+1],]
+            else:
+                possible=[position[0],position[1]+1]
+        
+        else:
+            if self.compteur==2:
+                   possible=[[position[0],position[1]-2],[position[0],position[1]-1],]
+            else:
+                possible=[position[0],position[1]-1]
         
 
+        for i in range(len(possible)): #En faire une fonction pour plus tard 
+            if possible[i]==None:
+                continue
+            elif possible[i].couleur==self.couleur:
+                possible.pop(i)
+            else:
+                continue
 
+        return possible
