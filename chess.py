@@ -52,7 +52,7 @@ class ChessGame:
         for i in range(8):
             for j in range(8):
                 piece=self.obtenir_piece(i,j)
-                if piece != None and piece.couleur!= self.tour:  #on s'assure que la piece qui met en echecest de la bonne couleur et qu'elle existe
+                if piece != None and piece.couleur!= self.tour:  #on s'assure que la piece qui met en echec est de la bonne couleur et qu'elle existe
                     if self.coup_legal((i,j),roi_case):          #on utilise la fonction qui verifie si le mouvement de la piece est autorisé
                         return True
         return False     
@@ -118,15 +118,13 @@ def echec_et_mat(self):
         return True
                                                 
                                 
-                                
-                    
-                    
-                                                
-                                
-                                
-           
+def cavalier(self,position):
+    #Cavalier se déplace en L donc en colonne (+/-1) ou (+/-2) et en largeur (+/-1) ou (+/-2)
+    possible=[[position[0]+1,position[1]+2], [position[0]-1,position[1]-2],[position[0]+1,position[1]-2],[position[0]-1,position[1]+2],[position[0]+2,position[1]+1],[position[0]-2,position[1]-1],[position[0]-2,position[1]+1],[position[0]+2,position[1]-1]]
 
-
-
-
-
+    for i in range(len(possible)):
+        if possible[i].couleur==self.couleur:
+            possible.pop(i)
+        else:
+            continue
+    return possible
