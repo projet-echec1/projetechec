@@ -112,7 +112,8 @@ class ChessGame:
                                 
         return True
                                                 
- 
+    """                            
+
     def fou(self,position):
         #On crée un système de diagonale et d'antidiagonale d'unité 1
         diagonale=[[position[0]+1,position[1]+1]]
