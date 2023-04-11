@@ -271,3 +271,8 @@ class ChessGame:
             return False
         elif positiondépart[0]==positionarrivée[0]:
 
+#ordi
+class minmax(joueur):
+    def __init__(self,couleur,profondeur_max):
+
+        
