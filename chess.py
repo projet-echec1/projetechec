@@ -112,20 +112,7 @@ class ChessGame:
                                 
         return True
                                                 
-    """                            
-    def cavalier(self,position): #projet-echec1
-        #Cavalier se déplace en L donc en colonne (+/-1) ou (+/-2) et en largeur (+/-1) ou (+/-2)
-        possible=[[position[0]+1,position[1]+2], [position[0]-1,position[1]-2],[position[0]+1,position[1]-2],[position[0]-1,position[1]+2],[position[0]+2,position[1]+1],[position[0]-2,position[1]-1],[position[0]-2,position[1]+1],[position[0]+2,position[1]-1]]
-
-        for i in range(len(possible)): #En faire une fonction pour plus tard 
-            if possible[i]==None:
-             continue
-            elif possible[i].couleur==self.couleur:
-                possible.pop(i)
-            else:
-                continue
-        return possible
-
+ 
     def fou(self,position):
         #On crée un système de diagonale et d'antidiagonale d'unité 1
         diagonale=[[position[0]+1,position[1]+1]]
@@ -263,3 +250,12 @@ class ChessGame:
             return False
         else:
             return self.mouvement_type(piecedépart,piecearrivée,positiondépart,positionarrivée)
+
+    def cavalier(self,piecedépart,piecearrivée,positiondépart,positionarrivée):
+        if abs(positiondépart[0]-positionarrivée[0])==2 and abs(positiondépart[1]-positionarrivée[1])==1:
+            return True
+        if abs(positiondépart[0]-positionarrivée[0])==1 and abs(positiondépart[1]-positionarrivée[1])==2:
+            return True
+        else:
+            return False
+    
