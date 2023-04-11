@@ -270,26 +270,39 @@ class ChessGame:
         if positiondépart[0]!=positionarrivée[0] and positiondépart[1]!=positionarrivée[1]:
             return False
         elif positiondépart[0]==positionarrivée[0]:
+
+    def obtenir_tous_les_coups(self):
+        for i in range(8):
+            for j in range(8):
+                if self.obtenirpiece(i,j) is not None:
+                    for x in range(8):
+                        for y in range(8):
+                            return coup_legal((i,j),(x,y))
+    def copier(self):
+        copie=Chessgame()
+        copie.etat=[l for l in self.echiquier]
+        return copie
+=======
             for i in range ()
 
-
 #ordi
-class joueur():
+class joueur:
     def __init__(self,couleur):
         self.couleur=couleur
 
-    def jouercoup(self,plateau):
+    def jouercoup(self,Chessgame):
         pass
 class minmax(joueur):
     def __init__(self,couleur,profondeur_max):
         super().__init__(couleur)
         self.profondeur_max=profondeur_max
 
-    def jouer_coup(self,plateau):
+    def jouer_coup(self,ChessGame):
         meilleur_coup=None
-        meilleur_score=float('')
-
+        meilleur_score=float('-inf')
+        for coups in Chessgame.obtenir_tous_les_coups(self.couleur):
+            
 
         
                                                                                                                                         
-        
+        #
