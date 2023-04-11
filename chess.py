@@ -274,7 +274,22 @@ class ChessGame:
 
 
 #ordi
+class joueur():
+    def __init__(self,couleur):
+        self.couleur=couleur
+
+    def jouercoup(self,plateau):
+        pass
 class minmax(joueur):
     def __init__(self,couleur,profondeur_max):
+        super().__init__(couleur)
+        self.profondeur_max=profondeur_max
 
+    def jouer_coup(self,plateau):
+        meilleur_coup=None
+        meilleur_score=float('')
+
+
+        
+                                                                                                                                        
         
