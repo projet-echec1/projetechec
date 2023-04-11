@@ -64,6 +64,11 @@ class ChessGame:
 
 
  
+    def choix_piece(self):
+       ligne=int(input("Ligne de la pièce à jouer"))
+       colonne=int(input("Colonne de la pièce à jouer"))
+       return [ligne,colonne]
+    
     def deplacer_piece(self,départ,arrivée):
         piece=self.obtenir_piece(départ)
         self.echiquier[départ[0]][départ[1]]=None
@@ -260,4 +265,9 @@ class ChessGame:
         else:
             return False
     
-###
+
+    def rook(self,piecedépart,piecearrivée,positiondépart,positionarrivée):
+        if positiondépart[0]!=positionarrivée[0] and positiondépart[1]!=positionarrivée[1]:
+            return False
+        elif positiondépart[0]==positionarrivée[0]:
+
