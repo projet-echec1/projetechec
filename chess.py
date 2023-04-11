@@ -294,12 +294,18 @@ class ChessGame:
             
 
     def obtenir_tous_les_coups(self):
+        a=[]
         for i in range(8):
             for j in range(8):
                 if self.obtenirpiece(i,j) is not None:
                     for x in range(8):
                         for y in range(8):
-                            return coup_legal((i,j),(x,y))
+                            if coup_legal((i,j),(x,y))==True:
+                                a.append[[x,y]]
+                            else:
+                                continue
+        return a
+        
     def copier(self):
         copie=Chessgame()
         copie.etat=[l for l in self.echiquier]
