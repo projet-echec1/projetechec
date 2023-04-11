@@ -270,6 +270,8 @@ class ChessGame:
         if positiondépart[0]!=positionarrivée[0] and positiondépart[1]!=positionarrivée[1]:
             return False
         elif positiondépart[0]==positionarrivée[0]:
+            for i in range ()
+
 
 #ordi
 class minmax(joueur):
