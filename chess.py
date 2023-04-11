@@ -19,11 +19,31 @@ class ChessGame:
                       [None, None, None, None, None, None, None, None],
                       [None, None, None, None, None, None, None, None], 
                       [Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P')],
-                      [Piece('blanc', 'R'), Piece('blanc', 'N'), Piece('blanc', 'B'), Piece('blanc', 'Q'), Piece('blanc', 'K'), Piece('blanc', 'B'), Piece('blanc', 'N'), Piece('blanc', 'R')] ] 
+                      [Piece('blanc', 'R'), Piece('blanc', 'N'), Piece('blanc', 'B'), Piece('blanc', 'Q'), Piece('blanc', 'K'), Piece('blanc', 'B'), Piece('blanc', 'N'), Piece('blanc', 'R')] ]
+        
+        self.echiquierbinaire=self.echiquierbinaire(self.echiquier)               
+
+                      
 
     
         self.tour='blanc'
         self.compteur=1
+
+    def echiquierbinaire(self,t):
+        a=[]
+        for i in range(8):
+            b=[]
+            a.append(b)
+            for j in range(8):
+                x=t[i][j]
+                if x==None:
+                    b.append(0)
+                elif x!=None and x.couleur=='noir':
+                    b.append(-1)
+                else:
+                    b.append(1)
+
+
 
     def changement_tour(): #projet-echec1
         if self.tour=='blanc':
@@ -271,6 +291,8 @@ class ChessGame:
             return False
         elif positiondépart[0]==positionarrivée[0]:
 
+            
+
     def obtenir_tous_les_coups(self):
         for i in range(8):
             for j in range(8):
@@ -282,9 +304,7 @@ class ChessGame:
         copie=Chessgame()
         copie.etat=[l for l in self.echiquier]
         return copie
-=======
-            for i in range ()
-
+    
 #ordi
 class joueur:
     def __init__(self,couleur):
