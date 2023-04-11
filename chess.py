@@ -76,29 +76,22 @@ class ChessGame:
             colonne=int(input("Colonne de jeu"))
             return [ligne,colonne]
 
-    def choixpiece(self):
-        pieceligne=input(int("Position en ligne de la pièce à jouer")) #Pour éviter confusions  demander la case actuelle de la pièce
-        piececolonne=input(int("Position de la pièce en colonne à jouer"))
         
-        return [pieceligne,piececolonne]
     
-    def piecemouvementpossible(self,position): #position de départ
-            x=obtenir_piece(self,position)
+    def mouvement_type(self,piecedepart,piecearrivée,positiondépart,positionarrivée): #position de départ
+            x=piecedepart
             if x.symbole==N:
-                return cavalier(self,position)
+                return self.cavalier(piecedepart,piecearrivée,positiondépart,positionarrivée)
             elif x.symbole==R:
-                return rook(self,position)
+                return self.rook(piecedepart,piecearrivée,positiondépart,positionarrivée)
             elif x.symbole==B:
-                return fou(self,position)
+                return self.fou(piecedepart,piecearrivée,positiondépart,positionarrivée)
             elif x.symbole==K:
-                return roi(self,position)
+                return self.roi(piecedepart,piecearrivée,positiondépart,positionarrivée)
             elif x.symbole==Q:
-                return reine(self,position)
+                return self.reine(piecedepart,piecearrivée,positiondépart,positionarrivée)
             elif x.symbole==P:
-                return pion(self,position)
-            else:
-                print("Case vide recommencez")
-                piecemouvementpossible(self,position)
+                return self.pion(piecedepart,piecearrivée,positiondépart,positionarrivée)
                        
     def echec_et_mat(self):
         if self.echec==False:  #cas le plus simple où il n'y a pas d'échec au roi
@@ -119,7 +112,7 @@ class ChessGame:
                                 
         return True
                                                 
-                                
+    """                            
     def cavalier(self,position): #projet-echec1
         #Cavalier se déplace en L donc en colonne (+/-1) ou (+/-2) et en largeur (+/-1) ou (+/-2)
         possible=[[position[0]+1,position[1]+2], [position[0]-1,position[1]-2],[position[0]+1,position[1]-2],[position[0]-1,position[1]+2],[position[0]+2,position[1]+1],[position[0]-2,position[1]-1],[position[0]-2,position[1]+1],[position[0]+2,position[1]-1]]
@@ -257,4 +250,16 @@ class ChessGame:
             else:
                 continue
 
-        return possible
+        return possible"""
+
+    def coup_legal(self,positiondépart,positionarrivée):
+        piecedépart=self.obtenir_piece(positiondépart)
+        piecearrivée=self.obtenir_piece(positionarrivée)
+        if piecedépart==None: #On ne peut pas sélectionner une case vide
+            return False
+        elif piecedépart.couleur!=self.tour: #Impossible de déplacer une pièce adverse
+            return False
+        elif piecedépart.couleur==piecearrivée.couleur: #Impossible de jouer sur une case occupée par ses propres pièces
+            return False
+        else:
+            return self.mouvement_type(piecedépart,piecearrivée,positiondépart,positionarrivée)
