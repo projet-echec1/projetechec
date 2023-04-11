@@ -185,7 +185,7 @@ class ChessGame:
             elif possible[i].couleur==self.couleur:
                 possible.pop(i)
             else:
-                continue
+                continuepository.add is not a function
 
         return possible
  
@@ -265,9 +265,6 @@ class ChessGame:
         else:
             return False
     
+    #ordi
 
-    def rook(self,piecedépart,piecearrivée,positiondépart,positionarrivée):
-        if positiondépart[0]!=positionarrivée[0] and positiondépart[1]!=positionarrivée[1]:
-            return False
-        elif positiondépart[0]==positionarrivée[0]:
-
+    
