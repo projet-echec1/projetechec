@@ -270,6 +270,7 @@ class ChessGame:
         if positiondépart[0]!=positionarrivée[0] and positiondépart[1]!=positionarrivée[1]:
             return False
         elif positiondépart[0]==positionarrivée[0]:
+
     def obtenir_tous_les_coups(self):
         for i in range(8):
             for j in range(8):
@@ -281,6 +282,9 @@ class ChessGame:
         copie=Chessgame()
         copie.etat=[l for l in self.echiquier]
         return copie
+=======
+            for i in range ()
+
 #ordi
 class joueur:
     def __init__(self,couleur):
