@@ -301,4 +301,4 @@ class minmax(joueur):
 
         
                                                                                                                                         
-        
+        #
