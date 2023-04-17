@@ -335,11 +335,44 @@ class ChessGame:
 
 
     def rook(self,piecedépart,piecearrivée,positiondépart,positionarrivée):
+        x=positiondépart[0]
+        y=positiondépart[1]
         if positiondépart[0]!=positionarrivée[0] and positiondépart[1]!=positionarrivée[1]:
             return False
         elif positiondépart[0]==positionarrivée[0]:
+            if positiondépart[1]< positionarrivée[1]:
+                for i in range (positiondépart[1]+1,positionarrivée[1]):
+                    if self.echiquier[x][i]!=None:
+                        if couleur.self.echiquier[x][i]!=couleur.piecedépart:
+                            return False
+                    else:
+                        return True
+                    
+            if positiondépart[1]>positionarrivée[1]:
+                for i in range (positionarrivée[1],positiondépart[1]-1):
+                    if self.echiquier[x][i]!=None:
+                        if couleur.self.echiquier[x][i]!=couleur.piecedépart:
+                            return False
+                    else:
+                        return True
+        else:
+            if positiondépart[0]< positionarrivée[0]:
+                for i in range (positiondépart[0]+1,positionarrivée[0]):
+                    if self.echiquier[i][y]!=None:
+                        if couleur.self.echiquier[i][y]!=couleur.piecedépart:
+                            return False
+                    else:
+                        return True
+                    
+            if positiondépart[0]>positionarrivée[0]:
+                for i in range (positionarrivée[0],positiondépart[0]-1):
+                    if self.echiquier[i][y]!=None:
+                        if couleur.self.echiquier[i][y]!=couleur.piecedépart:
+                            return False
+                    else:
+                        return True
+        
 
-            
 
     def obtenir_tous_les_coups(self):
         a=[]
@@ -376,7 +409,3 @@ class minmax(joueur):
         meilleur_score=float('-inf')
         for coups in Chessgame.obtenir_tous_les_coups(self.couleur):
             
-
-        
-                                                                                                                                        
-
