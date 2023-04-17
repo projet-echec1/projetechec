@@ -185,107 +185,9 @@ class ChessGame:
                                                 
     """                            
 
-    def fou(self,position):
-        #On crée un système de diagonale et d'antidiagonale d'unité 1
-        diagonale=[[position[0]+1,position[1]+1]]
-        antidiagonale=[[position[0]+1,position[1]-1]]
-
-        t=[0,1,2,3,4,5,6,7]
-        x1=self.position[0]-7 #On cherche à décaler l'incrémentation ici
-        x2=self.position[1]-7
-    
 
 
-        t1=[]
-        t2=[]
-        for i in range(len(t)):
-            t1=t1+[t[i]+x1[i],]
-            t2=t2+[t[i]+x2[i],]
-
-        p1=[]
-        p2=[]    
-
-        for j in range (len(t)): 
-
-            p1=p1+[t1[i]+diagonale[0],t2[i]+diagonale[1]]
-            p2=p2+[t1[i]+antidiagonale[0],t2[i]+antidiagonale[1]]
-    
-        possible=p1+p2
-
-        for i in range(len(possible)): #En faire une fonction pour plus tard 
-            if possible[i]==None:
-                continue
-            elif possible[i].couleur==self.couleur:
-                possible.pop(i)
-            else:
-                continue
-    
-            return possible
-
-
-
-    def rook(self, position):
-        #On crée un système ligne colonne de longueur/largeur 1
-        ligne=[position[0]+1,position[1]]
-        colonne=[position[0],position[1]+1]
-
-        t1=[]
-        t2=[]
-        for i in range(len(t)):
-            t1=t1+[t[i]+x1[i],]
-            t2=t2+[t[i]+x2[i],]
-
-        p1=[]
-        p2=[]    
-
-        for j in range (len(t)): 
-
-            p1=p1+[t1[i]+ligne[0],t2[i]+ligne[1]]
-            p2=p2+[t1[i]+colonne[0],t2[i]+colonne[1]]
-    
-        possible=p1+p2
-
-        for i in range(len(possible)): #En faire une fonction pour plus tard 
-            if possible[i]==None:
-                continue
-            elif possible[i].couleur==self.couleur:
-                possible.pop(i)
-            else:
-                continue
-
-        return possible
- 
-
-    def reine(self,position):
-        possible=[rook(self,position)+fou(self,position),]
-        return possible
-
-    def roi(self,position):
-        ligne=[[position[0]+1,position[1]],[position[0]+1,position[1]]]
-        colonne=[[position[0],position[1]+1],position[0],position[1]-1] 
-        diagonale=[[position[0]+1,position[1]+1],[position[0]-1,position[1]-1]]
-        antidiagonale=[[position[0]+1,position[1]-1],[position[0]+1,position[1]-1]]
-     
-        possible=ligne+colonne+diagonale+antidiagonale
-        for i in len(possible):
-            fdeplacer_pieceor j in len(possible):
-                if possible[i][j]==-1 or possible[i][j]==8:
-                    possible.pop(i)
-    
-        #Condition sur l'échiquier virtuel
-        #if virt.echec()==True:
-        #   possible.pop(positionechec)
-
-
-        for i in range(len(possible)): #En faire une fonction pour plus tard 
-            if possible[i]==None:
-                continue
-            elif possible[i].couleur==self.couleur:
-                possible.pop(i)
-            else:
-                continue
-
-        return possible
+  
     
     def pion(self,position):
         if self.couleur=='blanc':
@@ -371,6 +273,49 @@ class ChessGame:
                             return False
                     else:
                         return True
+
+    def fou(self,piecedépart,piecearrivée,positiondépart,positionarrivée):
+        x1=positiondépart[0]
+        y1=positiondépart[1]
+        x2=positionarrivée[0]
+        y2=positionarrivée[1]
+
+        if abs(x2-x1)!=abs(y2-y1):
+            return False
+        else:
+            if x1 < x2:
+                if y1<y2:
+                    for i in range (1,abs(y1-y2)):
+                        if self.obtenir_piece(x1+i,y2+i)!=None:
+                            if couleur.self.obtenir_piece(x1+i,y2+i)!=couleur.piecedépart:
+                                return False
+                        else:
+                            return True    
+                else:
+                    for i in range (1,abs(y1-y2)):
+                        if self.obtenir_piece(x1+i,y2-i)!=None:
+                            if couleur.self.obtenir_piece(x1+i,y2-i)!=couleur.piecedépart:
+                                return False
+                        else:
+                            return True    
+            else:
+                if y1<y2:
+                    for i in range (1,abs(y1-y2)):
+                        if self.obtenir_piece(x1-i,y2+i)!=None:
+                            if couleur.self.obtenir_piece(x1-i,y2+i)!=couleur.piecedépart:
+                                return False
+                        else:
+                            return True    
+                else:
+                    for i in range (1,abs(y1-y2)):
+                        if self.obtenir_piece(x1-i,y2-i)!=None:
+                            if couleur.self.obtenir_piece(x1-i,y2-i)!=couleur.piecedépart:
+                                return False
+                        else:
+                            return True    
+    
+        
+        
         
 
 
