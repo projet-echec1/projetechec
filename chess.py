@@ -315,8 +315,13 @@ class ChessGame:
                             return True    
     
         
-        
-        
+    def reine(self,piecedépart,piecearrivée,positiondépart,positionarrivée):
+        return self.rook(piecedépart,piecearrivée,positiondépart,positionarrivée) or self.fou(piecedépart,piecearrivée,positiondépart,positionarrivée)        
+
+    def pion(self,piecedépart,piecearrivée,positiondépart,positionarrivée):
+        if couleur.piecedépart=='blanc':
+            if positiondépart
+
 
 
     def obtenir_tous_les_coups(self):
