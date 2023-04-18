@@ -1,4 +1,5 @@
-class Piece():
+class Piece(): 
+
     def __init__(self,couleur,symbole):
         self.symbole=symbole
         self.couleur=couleur
@@ -33,29 +34,28 @@ class ChessGame():
         else:
             self.tour='blanc' #Deux valeurs possibles uniquement 'noir' ou 'blanc'
             self.compteur+=1
-    
-        
+  
     def obtenir_piece(self, position):
 
         ligne, colonne = position 
         
         return self.echiquier[ligne][colonne]
     
-
     def case_roi(self,couleur):
         for i in range(8):
             for j in range(8):
                 piece=self.obtenir_piece([i,j])
-                if piece.couleur==couleur and piece.symbole=='R':
-                    return(i,j)
-            
+                if piece is not None:
+                    if piece.couleur==couleur and piece.symbole=='R':
+                        return(i,j)    
+                  
 
     def est_capturable(self,position):
         for i in range(8):    
             for j in range(8):
                 piece1=self.obtenir_piece([i,j])
-                if piece1!=None:
-                    if self.coup_legal((i,j),position)==True:
+                if piece1 is not None:
+                    if self.coup_legal((i,j),position) is True:
                         return True
 
     def echec(self):
@@ -63,8 +63,8 @@ class ChessGame():
         for i in range(8):
             for j in range(8):
                 piece=self.obtenir_piece([i,j])
-                if piece != None and piece.couleur!= self.tour:  #on s'assure que la piece qui met en echec est de la bonne couleur et qu'elle existe
-                    if self.coup_legal((i,j),roi_case)==True:          #on utilise la fonction qui verifie si le mouvement de la piece est autorisé
+                if piece is not None and piece.couleur!= self.tour:  #on s'assure que la piece qui met en echec est de la bonne couleur et qu'elle existe
+                    if self.coup_legal((i,j),roi_case) is True:          #on utilise la fonction qui verifie si le mouvement de la piece est autorisé
                         return True
         return False     
             
@@ -111,7 +111,7 @@ class ChessGame():
         
 
 
-            if self.echec_et_mat()==True:
+            if self.echec_et_mat() is True:
                 print("C'est finito pour toi, révise tes leçons")
         
 
@@ -129,10 +129,10 @@ class ChessGame():
         colonne=int(input("Colonne de la pièce à jouer"))
         return [ligne,colonne]
     
-    def deplacer_piece(self,départ,arrivée):
-        piece=self.obtenir_piece(départ)
-        self.echiquier[départ[0]][départ[1]]=None
-        self.echiquier[arrivée[0]][arrivée[1]]=piece
+    def deplacer_piece(self,depart,arrivee):
+        piece=self.obtenir_piece(depart)
+        self.echiquier[depart[0]][depart[1]]=None
+        self.echiquier[arrivee[0]][arrivee[1]]=piece
 
         
 
@@ -143,49 +143,54 @@ class ChessGame():
 
         
     
-    def mouvement_type(self,piecedepart,piecearrivée,positiondépart,positionarrivée): #position de départ
+    def mouvement_type(self,piecedepart,piecearrivee,positiondepart,positionarrivee): #position de départ
         x=piecedepart
         if x.symbole=='N':
-            return self.cavalier(piecedepart,piecearrivée,positiondépart,positionarrivée)
+            return self.cavalier(piecedepart,piecearrivee,positiondepart,positionarrivee)
         elif x.symbole=='R':
-            return self.rook(piecedepart,piecearrivée,positiondépart,positionarrivée)
+            return self.rook(piecedepart,piecearrivee,positiondepart,positionarrivee)
         elif x.symbole=='B':
-            return self.fou(piecedepart,piecearrivée,positiondépart,positionarrivée)
+            return self.fou(piecedepart,piecearrivee,positiondepart,positionarrivee)
         elif x.symbole=='K':
-            return self.roi(positiondépart,positionarrivée)
+            return self.roi(positiondepart,positionarrivee)
         elif x.symbole=='Q':
-            return self.reine(piecedepart,piecearrivée,positiondépart,positionarrivée)
+            return self.reine(piecedepart,piecearrivee,positiondepart,positionarrivee)
         elif x.symbole=='P':
-            return self.pion(piecedepart,piecearrivée,positiondépart,positionarrivée)
+            return self.pion(piecedepart,piecearrivee,positiondepart,positionarrivee)
                        
-    def coup_legal(self,positiondépart,positionarrivée):
-        piecedepart=self.obtenir_piece(positiondépart)
-        piecearrivée=self.obtenir_piece(positionarrivée)    
+    def coup_legal(self,positiondepart,positionarrivee):
+        piecedepart=self.obtenir_piece(positiondepart)
+        piecearrivee=self.obtenir_piece(positionarrivee)    
         if piecedepart==None: #On ne peut pas sélectionner une case vide
             return False
         elif piecedepart.couleur!=self.tour: #Impossible de déplacer une pièce adverse
             return False
-        elif piecedepart.couleur==piecearrivée.couleur: #Impossible de jouer sur une case occupée par ses propres pièces
+        elif piecedepart.couleur==piecearrivee.couleur: #Impossible de jouer sur une case occupée par ses propres pièces
             return False
         else:
-            return self.mouvement_type(piecedepart,piecearrivée,positiondépart,positionarrivée)
+            return self.mouvement_type(piecedepart,piecearrivee,positiondepart,positionarrivee)
         
     def echec_et_mat(self):
-        if self.echec==False:  #cas le plus simple où il n'y a pas d'échec au roi
+        if self.echec() is False:  #cas le plus simple où il n'y a pas d'échec au roi
             return False
         for i in range(8):
             for j in range(8):
-                piece=self.obtenir_piece(i,j)
-                if piece !=None and piece.couleur==self.tour:
+                piece=self.obtenir_piece([i,j])
+                if piece is not None and piece.couleur==self.tour:
                     for x in range(8):
                         for y in range(8):
-                            if self.coup_legal((i,j),(x,y))==True:
-                                piece_arrivee_enregistré=self.obtenir_piece(x,y)
+                            if self.coup_valide((i,j),(x,y)) is True:
                                 self.deplacer_piece((i,j),(x,y))
+                                echec=self.echec()
+                                if echec is False:
+                                    return False
+
+                                
+        return True
 
     def coup_valide(self,positiondépart,positionarrivée):
         virt=self.virtuel
-        if self.couplegal(positiondépart,positionarrivée)==True:
+        if self.coup_legal(positiondépart,positionarrivée)==True:
             virt.deplacer_piece(positiondépart,positionarrivée)
             if virt.echec==True or virt.echec_et_mat==True:
                 return False
@@ -318,6 +323,7 @@ class ChessGame():
                     else:
                         return False
     
+    
     def roi(self,positiondépart,positionarrivée):
         if abs(positionarrivée[0]-positiondépart[0])==1 and (positionarrivée[1]-positiondépart[1])==1:
             return True
@@ -387,4 +393,5 @@ class minmax(joueur):
         meilleur_score=float('-inf')
         for coups in Chessgame.obtenir_tous_les_coups(self.couleur):
              """
- 
+A=ChessGame()
+A.jouer()
