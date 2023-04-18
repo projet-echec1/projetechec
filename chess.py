@@ -419,7 +419,13 @@ class minmax(joueur):
         meilleur_coup=None
         meilleur_score=0
         for coups in Chessgame.obtenir_tous_les_coups(self.couleur):
-            if self.valeur()
+            if self.valeur(self.peut_capturer(coups))>meilleur_score:
+                meilleur_coup=self.valeur(self.peut_capturer(coups))
+        return meilleur_score
+
+    def minmaxmet(self,ChessGame,profondeur):
+        if profondeur==0
+
 
 
 
