@@ -23,7 +23,7 @@ class ChessGame:
         
         self.echiquierbinaire=self.echiquierbinaire(self.echiquier)      
 
-        self.virtuel==self.echiquier
+        self.virtuel=self.echiquier
 
 
                       
@@ -45,6 +45,7 @@ class ChessGame:
                     b.append(-1)
                 else:
                     b.append(1)
+        return a
 
 
 
@@ -248,7 +249,7 @@ class ChessGame:
             if positiondépart[1]< positionarrivée[1]:
                 for i in range (positiondépart[1]+1,positionarrivée[1]):
                     if self.echiquier[x][i]!=None:
-                        if couleur.self.echiquier[x][i]!=couleur.piecedépart:
+                        if self.echiquier[x][i].couleur!=piecedépart.couleur:
                             return False
                     else:
                         return True
@@ -256,7 +257,7 @@ class ChessGame:
             if positiondépart[1]>positionarrivée[1]:
                 for i in range (positionarrivée[1],positiondépart[1]-1):
                     if self.echiquier[x][i]!=None:
-                        if couleur.self.echiquier[x][i]!=couleur.piecedépart:
+                        if self.echiquier[x][i].couleur!=piecedépart.couleur:
                             return False
                     else:
                         return True
@@ -264,7 +265,7 @@ class ChessGame:
             if positiondépart[0]< positionarrivée[0]:
                 for i in range (positiondépart[0]+1,positionarrivée[0]):
                     if self.echiquier[i][y]!=None:
-                        if couleur.self.echiquier[i][y]!=couleur.piecedépart:
+                        if self.echiquier[i][y].couleur!=piecedépart.couleur:
                             return False
                     else:
                         return True
@@ -272,7 +273,7 @@ class ChessGame:
             if positiondépart[0]>positionarrivée[0]:
                 for i in range (positionarrivée[0],positiondépart[0]-1):
                     if self.echiquier[i][y]!=None:
-                        if couleur.self.echiquier[i][y]!=couleur.piecedépart:
+                        if self.echiquier[i][y].couleur!=piecedépart.couleur:
                             return False
                     else:
                         return True
@@ -290,14 +291,14 @@ class ChessGame:
                 if y1<y2:
                     for i in range (1,abs(y1-y2)):
                         if self.obtenir_piece(x1+i,y2+i)!=None:
-                            if couleur.self.obtenir_piece(x1+i,y2+i)!=couleur.piecedépart:
+                            if self.obtenir_piece(x1+i,y2+i).couleur!=piecedépart.couleur:
                                 return False
                         else:
                             return True    
                 else:
                     for i in range (1,abs(y1-y2)):
                         if self.obtenir_piece(x1+i,y2-i)!=None:
-                            if couleur.self.obtenir_piece(x1+i,y2-i)!=couleur.piecedépart:
+                            if self.obtenir_piece(x1+i,y2-i).couleur!=piecedépart.couleur:
                                 return False
                         else:
                             return True    
@@ -305,14 +306,14 @@ class ChessGame:
                 if y1<y2:
                     for i in range (1,abs(y1-y2)):
                         if self.obtenir_piece(x1-i,y2+i)!=None:
-                            if couleur.self.obtenir_piece(x1-i,y2+i)!=couleur.piecedépart:
+                            if self.obtenir_piece(x1-i,y2+i).couleur!=piecedépart.couleur:
                                 return False
                         else:
                             return True    
                 else:
                     for i in range (1,abs(y1-y2)):
                         if self.obtenir_piece(x1-i,y2-i)!=None:
-                            if couleur.self.obtenir_piece(x1-i,y2-i)!=couleur.piecedépart:
+                            if self.obtenir_piece(x1-i,y2-i).couleur!=piecedépart.couleur:
                                 return False
                         else:
                             return True   
@@ -327,7 +328,7 @@ class ChessGame:
         x2=positionarrivée[0]
         y2=positionarrivée[1]
         
-        if couleur.piecedépart=='blanc':
+        if piecedépart.couleur=='blanc':
             if y1==y2:
                 if x1==1:
                     if x2==x1+1 or x2==x1+2:
@@ -340,7 +341,7 @@ class ChessGame:
                     else:
                         return False
         
-        if couleur.piecedépart=='noir':
+        if piecedépart.couleur=='noir':
             if y1==y2:
                 if x1==6:
                     if x2==x1-1 or x2==x1-2:
@@ -355,6 +356,33 @@ class ChessGame:
         
                 
 
+    def checkpromotion(self):
+        for i in range(8):
+            
+            a=self.obtenir_piece(self.echiquier[7][i])
+            p=self.echiquier[7][i]
+            
+            if a.couleur=='blanc' and a.symbole=='P'and self.tour:
+                promotion(p)
+            
+            c=self.obtenir_piece(self.echiquier[0][i])
+            p1=self.echiquier[0][i]
+            
+            if c.couleur=='blanc' and a.symbole=='P'and self.tour:
+                promotion(p1)
+            
+            
+
+
+    def promotion(self,p):
+        b=['P','Q','K','B','N','R']
+        i=input("Promotion ! Quelle pièce choisissez vous ?")
+        if i not in b:
+            print("Erreur, la pièce n'existe pas")
+            self.promotion(p)
+        
+        else:
+            p=Piece(couleur,p)
 
 
 
@@ -365,16 +393,12 @@ class ChessGame:
                 if self.obtenirpiece(i,j) is not None:
                     for x in range(8):
                         for y in range(8):
-                            if coup_legal((i,j),(x,y))==True:
+                            if coup_valide((i,j),(x,y))==True:
                                 a.append[[x,y]]
                             else:
                                 continue
         return a
         
-    def copier(self):
-        copie=Chessgame()
-        copie.etat=[l for l in self.echiquier]
-        return copie
     
 #ordi
 class joueur:
@@ -392,4 +416,4 @@ class minmax(joueur):
         meilleur_coup=None
         meilleur_score=float('-inf')
         for coups in Chessgame.obtenir_tous_les_coups(self.couleur):
-            
+             
