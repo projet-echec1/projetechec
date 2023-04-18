@@ -51,13 +51,24 @@ class ChessGame():
                   
 
     def est_capturable(self,position):
+        piece2=self.obtenir_piece(position)
         for i in range(8):    
             for j in range(8):
 
                 piece1=self.obtenir_piece([i,j])
                 if piece1 is not None:
-                    if self.coup_legal((i,j),position) is True:
-                        return True
+                    if self.coup_valide((i,j),position) is True:
+                        return [piece2.symbole, True]
+
+    def peut_capturer(self,piece,position):
+        a=[]
+        for i in range(8):
+            for j in range(8):
+                if coup_valide(position,[i,j]) is True:
+                    b=self.obtenir_piece([i,j])
+                    a.append(c.couleur)
+                    
+                    return c                            
 
     def echec(self):
         roi_case=self.case_roi(self.tour)
@@ -65,7 +76,7 @@ class ChessGame():
             for j in range(8):
                 piece=self.obtenir_piece([i,j])
                 if piece is not None and piece.couleur!= self.tour:  #on s'assure que la piece qui met en echec est de la bonne couleur et qu'elle existe
-                    if self.coup_legal((i,j),roi_case) is True:          #on utilise la fonction qui verifie si le mouvement de la piece est autorisé
+                    if self.coup_valide((i,j),roi_case) is True:          #on utilise la fonction qui verifie si le mouvement de la piece est autorisé
                         return True
         return False     
             
@@ -197,7 +208,8 @@ class ChessGame():
                 return False
             else:
                 return True
-        
+    
+    
 
     def cavalier(self,piecedépart,piecearrivée,positiondépart,positionarrivée):
         if abs(positiondépart[0]-positionarrivée[0])==2 and abs(positiondépart[1]-positionarrivée[1])==1:
@@ -322,7 +334,10 @@ class ChessGame():
                     if x2==x1-1:
                         return True
                     else:
+            
                         return False
+           
+
     
     
     def roi(self,positiondépart,positionarrivée):
