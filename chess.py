@@ -71,8 +71,15 @@ class ChessGame:
                 if piece.couleur==couleur and piece.symbole=='R':
                     return(i,j)
             
-            
-    def echec(self,):
+
+    def est_capturable(self,position):
+            for j in range(8):
+                piece1=self.obtenir_piece(i,j)
+                if piece !=None:
+                        if self.coup_legal((i,j),position)==True:
+                            return True
+
+    def echec(self):
         roi_case=self.case_roi(self.tour)
         for i in range(8):
             for j in range(8):
@@ -93,7 +100,7 @@ class ChessGame:
             print("C'est au tour des blancs")
             depart=self.choixpiece()
             arrivee=self.choixmouvement()
-            if self.coup_legal()==True:
+            if self.coup_valide(depart,arrivee)==True:
                 self.deplacer_piece(depart, arrivee)
                 a=self.sauvegarder_etat_echiquier()
                 self.virtuel=a
@@ -109,7 +116,7 @@ class ChessGame:
             print("C'est au tour des noirs")
             depart=self.choixpiece()
             arrivee=self.choixmouvement()
-            if self.coup_legal()==True:
+            if self.coup_valide(depart,arrivee)==True:
                 self.deplacer_piece(depart, arrivee)
                 a=self.sauvegarder_etat_echiquier()
                 self.virtuel=a
@@ -123,14 +130,22 @@ class ChessGame:
         
 
 
-            if echec_et_mat():
+            if echec_et_mat()==True:
                 print("C'est finito pour toi, révise tes leçons")
+        
+
+    def sauvegarder_etat_echiquier(echiquier):
+        a=[]
+        for i in range(8):
+            for j in range (8):
+                    a.append(echiquier[i][j])
+
 
             
 
 
 
-#ATTENTION: à finir 
+#ATTENTION: à finir (CAPTURE A FINIR)
 #Mouvements
 
 
@@ -201,6 +216,17 @@ class ChessGame:
             return False
         else:
             return self.mouvement_type(piecedépart,piecearrivée,positiondépart,positionarrivée)
+        
+    
+    def coup_valide(self,piecedépart,piecearrivée,positiondépart,positionarrivée,tour):
+        virt=self.virtuel
+        if self.couplegal(positiondépart,positionarrivée)==True:
+            virt.deplacer_piece(positiondépart,positionarrivée)
+            if virt.echec==True or virt.echec_et_mat==True:
+                return False
+            else:
+                return True
+        
 
     def cavalier(self,piecedépart,piecearrivée,positiondépart,positionarrivée):
         if abs(positiondépart[0]-positionarrivée[0])==2 and abs(positiondépart[1]-positionarrivée[1])==1:
@@ -289,8 +315,8 @@ class ChessGame:
                             if couleur.self.obtenir_piece(x1-i,y2-i)!=couleur.piecedépart:
                                 return False
                         else:
-                            return True    
-    
+                            return True   
+                
         
     def reine(self,piecedépart,piecearrivée,positiondépart,positionarrivée):
         return self.rook(piecedépart,piecearrivée,positiondépart,positionarrivée) or self.fou(piecedépart,piecearrivée,positiondépart,positionarrivée)        
