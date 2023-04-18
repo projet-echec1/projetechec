@@ -78,6 +78,7 @@ class ChessGame:
                 if piece !=None:
                         if self.coup_legal((i,j),position)==True:
                             return True
+                        
 
     def echec(self):
         roi_case=self.case_roi(self.tour)
@@ -385,11 +386,28 @@ class joueur:
         pass
 class minmax(joueur):
     def __init__(self,couleur,profondeur_max):
-        super().__init__(couleur)
-        self.profondeur_max=profondeur_max
+        self.tour='blanc'
+
+
+
+
+    def valeur(self,Chessgame,piece.symbole):
+        u=0
+        A={'R':5,'P':1,'N':3,'B':3,'Q':9,'K':50}
+        for i in A:
+            if piece.symbole==i:
+                u=i
+        return A
+
 
     def jouer_coup(self,ChessGame):
         meilleur_coup=None
-        meilleur_score=float('-inf')
+        meilleur_score=0
         for coups in Chessgame.obtenir_tous_les_coups(self.couleur):
+            if self.valeur()
+
+
+
             
+
+
