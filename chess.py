@@ -21,7 +21,10 @@ class ChessGame:
                       [Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P'), Piece('blanc', 'P')],
                       [Piece('blanc', 'R'), Piece('blanc', 'N'), Piece('blanc', 'B'), Piece('blanc', 'Q'), Piece('blanc', 'K'), Piece('blanc', 'B'), Piece('blanc', 'N'), Piece('blanc', 'R')] ]
         
-        self.echiquierbinaire=self.echiquierbinaire(self.echiquier)               
+        self.echiquierbinaire=self.echiquierbinaire(self.echiquier)      
+
+        self.virtuel==self.echiquier
+
 
                       
 
@@ -69,19 +72,19 @@ class ChessGame:
                     return(i,j)
             
             
-    def echec(self):
+    def echec(self,):
         roi_case=self.case_roi(self.tour)
         for i in range(8):
             for j in range(8):
                 piece=self.obtenir_piece(i,j)
                 if piece != None and piece.couleur!= self.tour:  #on s'assure que la piece qui met en echec est de la bonne couleur et qu'elle existe
-                    if self.coup_legal((i,j),roi_case):          #on utilise la fonction qui verifie si le mouvement de la piece est autorisé
+                    if self.coup_legal((i,j),roi_case)==True:          #on utilise la fonction qui verifie si le mouvement de la piece est autorisé
                         return True
         return False     
             
 
 
-    def jouer(self):
+    def jouer(self,joueur1,joueur2):
         print("Bienvenue au jeu d'échecs!")
         while self.echec_et_mat() is False:
             print(self.echiquier)
@@ -92,7 +95,8 @@ class ChessGame:
             arrivee=self.choixmouvement()
             if self.coup_legal()==True:
                 self.deplacer_piece(depart, arrivee)
-                self.sauvegarder_etat_echiquier()
+                a=self.sauvegarder_etat_echiquier()
+                self.virtuel=a
                 self.changement_tour()
                 print("C'est au tour des noirs")
                 if self.echec():
@@ -107,7 +111,8 @@ class ChessGame:
             arrivee=self.choixmouvement()
             if self.coup_legal()==True:
                 self.deplacer_piece(depart, arrivee)
-                self.sauvegarder_etat_echiquier()
+                a=self.sauvegarder_etat_echiquier()
+                self.virtuel=a
                 self.changement_tour()
                 print("C'est au tour des blancs")
                 if self.echec():
@@ -183,35 +188,7 @@ class ChessGame:
                                 
         return True
                                                 
-    """                            
-
-
-
-  
-    
-    def pion(self,position):
-        if self.couleur=='blanc':
-            if self.compteur==1:
-                possible=[[position[0],position[1]+2],[position[0],position[1]+1],]
-            else:
-                possible=[position[0],position[1]+1]
-        
-        else:
-            if self.compteur==2:
-                   possible=[[position[0],position[1]-2],[position[0],position[1]-1],]
-            else:
-                possible=[position[0],position[1]-1]
-        
-
-        for i in range(len(possible)): #En faire une fonction pour plus tard 
-            if possible[i]==None:
-                continue
-            elif possible[i].couleur==self.couleur:
-                possible.pop(i)
-            else:
-                continue
-
-        return possible"""
+   
 
     def coup_legal(self,positiondépart,positionarrivée):
         piecedépart=self.obtenir_piece(positiondépart)
@@ -319,8 +296,39 @@ class ChessGame:
         return self.rook(piecedépart,piecearrivée,positiondépart,positionarrivée) or self.fou(piecedépart,piecearrivée,positiondépart,positionarrivée)        
 
     def pion(self,piecedépart,piecearrivée,positiondépart,positionarrivée):
+        x1=positiondépart[0]
+        y1=positiondépart[1]
+        x2=positionarrivée[0]
+        y2=positionarrivée[1]
+        
         if couleur.piecedépart=='blanc':
-            if positiondépart
+            if y1==y2:
+                if x1==1:
+                    if x2==x1+1 or x2==x1+2:
+                        return True
+                    else:
+                        return False
+                else:
+                    if x2==x1+1:
+                        return True
+                    else:
+                        return False
+        
+        if couleur.piecedépart=='noir':
+            if y1==y2:
+                if x1==6:
+                    if x2==x1-1 or x2==x1-2:
+                        return True
+                    else:
+                        return False
+                else:
+                    if x2==x1-1:
+                        return True
+                    else:
+                        return False
+        
+                
+
 
 
 
