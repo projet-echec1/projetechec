@@ -4,7 +4,8 @@
 
 ### To-Do
 
-1. Capture   
-2.  Printable board  
-3.   minmax  
-4.    Monte-carlo 
+1. Capture  
+2. pat 
+4.  Printable board  
+5.   minmax 
+6.    Monte-carlo 
