@@ -21,11 +21,29 @@ class ChessGame():
         self.virtuel=self.echiquier
 
 
-                      
+        self.printboard=self.print_board              
 
     
         self.tour='blanc'
         self.compteur=1
+    
+    def print_board(self):
+        a=[]
+        for i in range(8):
+            a.append(b)
+            b=[]
+            for j in range(8):
+                p=self.obtenir_piece(i,j)
+                if p==None:
+                    b.append("")
+                else:
+                    if p.couleur=='blanc':
+                        b.append("w"+str(p.symbole))
+
+                    else: 
+                        b.append("b"+str(p.symbole))
+        return a
+    
 
     def changement_tour(self): #projet-echec1
         if self.tour=='blanc':
