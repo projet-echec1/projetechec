@@ -54,7 +54,6 @@ class ChessGame():
         piece2=self.obtenir_piece(position)
         for i in range(8):    
             for j in range(8):
-
                 piece1=self.obtenir_piece([i,j])
                 if piece1 is not None:
                     if self.coup_valide((i,j),position) is True:
@@ -208,6 +207,7 @@ class ChessGame():
                 return False
             else:
                 return True
+            
     
     
 
@@ -237,7 +237,7 @@ class ChessGame():
                         return True
                     
             if positiondépart[1]>positionarrivée[1]:
-                for i in range (positionarrivée[1],positiondépart[1]-1):
+                for i in range (positionarrivée[1]+1,positiondépart[1]):
                     if self.echiquier[x][i]!=None:
                         if self.echiquier[x][i].couleur!=piecedépart.couleur:
                             return False
@@ -253,7 +253,7 @@ class ChessGame():
                         return True
                     
             if positiondépart[0]>positionarrivée[0]:
-                for i in range (positionarrivée[0],positiondépart[0]-1):
+                for i in range (positionarrivée[0]+1,positiondépart[0]):
                     if self.echiquier[i][y]!=None:
                         if self.echiquier[i][y].couleur!=piecedépart.couleur:
                             return False
@@ -322,6 +322,14 @@ class ChessGame():
                         return True
                     else:
                         return False
+                    
+            elif y2-y1==1 and abs(x1-x2)==1:
+                if piecearrivée!=None and piecearrivée.couleur!=piecedépart.couleur:
+                    return True
+                else:
+                    return False
+            else:
+                return False
         
         if piecedépart.couleur=='noir':
             if y1==y2:
@@ -336,6 +344,17 @@ class ChessGame():
                     else:
             
                         return False
+                    
+            elif y2-y1==-1 and abs(x1-x2)==1:
+                if piecearrivée!=None and piecearrivée.couleur!=piecedépart.couleur:
+                    return True
+                else:
+                    return False
+            else:
+                return False
+
+                     
+
            
 
     
@@ -354,13 +373,13 @@ class ChessGame():
             a=self.obtenir_piece(self.echiquier[7][i])
             p=self.echiquier[7][i]
             
-            if a.couleur=='blanc' and a.symbole=='P'and self.tour:
+            if a.couleur=='blanc' and a.symbole=='P':
                 self.promotion(p,a)
             
             c=self.obtenir_piece(self.echiquier[0][i])
             p1=self.echiquier[0][i]
             
-            if c.couleur=='blanc' and a.symbole=='P'and self.tour:
+            if c.couleur=='blanc' and a.symbole=='P':
                 self.promotion(p1,c)
             
             
@@ -374,7 +393,7 @@ class ChessGame():
             self.promotion(p,c)
         
         else:
-            p=Piece(c.couleur,p)
+            p=Piece(c.couleur,i)
 
 
 
