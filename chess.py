@@ -1,3 +1,13 @@
+import random
+
+    def attribuer_couleurs(self):
+        couleurs = ["blanc", "noir"]
+        random.shuffle(couleurs)
+
+        couleur_humain = couleurs[0]
+        couleur_ordi = couleurs[1]
+
+        return couleur_humain, couleur_ordi
 class Piece(): 
 
     def __init__(self,couleur,symbole):
@@ -26,6 +36,12 @@ class ChessGame():
     
         self.tour='blanc'
         self.compteur=1
+    
+
+
+
+
+    
     
     def print_board(self):
         a=[]
@@ -73,7 +89,7 @@ class ChessGame():
         for i in range(8):    
             for j in range(8):
                 piece1=self.obtenir_piece([i,j])
-                if piece1 is not None:
+                if piece1 is not None and piece1.couleur=!piece2.couleur:
                     if self.coup_valide((i,j),position) is True:
                         return [piece2.symbole, True]
 
@@ -91,15 +107,14 @@ class ChessGame():
         roi_case=self.case_roi(self.tour)
         for i in range(8):
             for j in range(8):
-                piece=self.obtenir_piece([i,j])
-                if piece is not None and piece.couleur!= self.tour:  #on s'assure que la piece qui met en echec est de la bonne couleur et qu'elle existe
-                    if self.coup_valide((i,j),roi_case) is True:          #on utilise la fonction qui verifie si le mouvement de la piece est autorisé
-                        return True
+                piece=self.obtenir_piece([i,j])  #on s'assure que la piece qui met en echec est de la bonne couleur et qu'elle existe
+                if self.est_capturable(roi_case)) is True:          #on utilise la fonction qui verifie si le mouvement de la piece est autorisé
+                    return True
         return False     
             
 
 
-    def jouer(self):
+    def jouer(self,profondeur):
         print("Bienvenue au jeu d'échecs!")
         while self.echec_et_mat() is False:
             print(self.echiquier)
@@ -107,36 +122,52 @@ class ChessGame():
     
     def deroulement(self):
         if self.tour=='blanc':
-            print("C'est au tour des blancs")
-            depart=self.choix_piece()
-            arrivee=self.choixmouvementjoueur()
-            if self.coup_valide(depart,arrivee) is True:
+            if joueur='blanc':
+                print("C'est au tour des blancs")
+                depart=self.choix_piece()
+                arrivee=self.choixmouvementjoueur()
+                if self.echec():
+                    print("Vous êtes en échec")
+                if self.coup_valide(depart,arrivee) is True:
+                    self.deplacer_piece(depart, arrivee)
+                    a=self.sauvegarder_etat_echiquier(self.echiquier)
+                    self.virtuel=a
+                    self.changement_tour()
+                
+                else:
+                    print("Coup impossible, veuillez rejouez")
+                    self.deroulement()
+                    
+            else:
+                depart,arrivee=self.minmax('blanc',profondeur,echiquier)
                 self.deplacer_piece(depart, arrivee)
                 a=self.sauvegarder_etat_echiquier(self.echiquier)
                 self.virtuel=a
                 self.changement_tour()
-                print("C'est au tour des noirs")
-                if self.echec():
-                    print("Vous êtes en échec")
-            else:
-                print("Coup impossible, veuillez rejouez")
-                self.deroulement()
-
+                    
         else:
             print("C'est au tour des noirs")
-            depart=self.choix_piece()
-            arrivee=self.choixmouvementjoueur()
-            if self.coup_valide(depart,arrivee)==True:
+            if joueur='noir':
+                depart=self.choix_piece()
+                arrivee=self.choixmouvementjoueur()
+                if self.echec():
+                    print("Vous êtes en échec")
+                if self.coup_valide(depart,arrivee)==True:
+                    self.deplacer_piece(depart, arrivee)
+                    a=self.sauvegarder_etat_echiquier(self.echiquier)
+                    self.virtuel=a
+                    self.changement_tour()
+
+                else:
+                    print("Coup impossible, veuillez rejouez")
+                    self.deroulement()
+            else:
+                depart,arrivee=self.minmax('blanc',profondeur,echiquier)
                 self.deplacer_piece(depart, arrivee)
                 a=self.sauvegarder_etat_echiquier(self.echiquier)
                 self.virtuel=a
                 self.changement_tour()
-                print("C'est au tour des blancs")
-                if self.echec():
-                    print("Vous êtes en échec")
-            else:
-                print("Coup impossible, veuillez rejouez")
-                self.deroulement()
+
         
 
 
@@ -416,59 +447,93 @@ class ChessGame():
 
 
     def obtenir_tous_les_coups(self):
-        a=[]
+        coup_possible=[]
+        position_piece=[]
         for i in range(8):
             for j in range(8):
-                if self.obtenirpiece(i,j) is not None:
+                piece= echiquier[i][j]
+                if piece is not None and piece.couleur=self.tour:
                     for x in range(8):
                         for y in range(8):
                             if self.coup_valide((i,j),(x,y))==True:
-                                a.append[[x,y]]
+                                coup_possible.append[[x,y]]
+                                position_piece.append([i,j])
                             else:
                                 continue
-        return a
+        return position_piece,coup_possible
         
     
-"""#ordi
-class joueur:
-    def __init__(self,couleur):
-        self.couleur=couleur
-
-    def jouercoup(self,Chessgame):
-        pass
-class minmax(joueur):
-    def __init__(self,couleur,profondeur_max):
-        self.tour='blanc'
 
 
+def evaluer_echiquier(self,echiquier):
+    valeur_pieces={
+        'P': 1,
+        'N': 3,
+        'B':3,
+        'R':5,
+        'Q':9,
+        'K':10
+    }
+    score_total = 0
+
+    for ligne in range(8):
+        for colonne in range (8):
+            piece=echiquier[ligne][colonne]
+
+            if piece is not None:
+                score_total+= valeurs_pieces[piece]
+                if piece in ['P','N','B','R','Q']:
+                    score_total+=0.1
+                if piece =='K':
+                    if self.est_capturable((ligne,colonne)):
+                        score_total -=0.5
+    return score_total
 
 
-    def valeur(self,Chessgame,piece.symbole):
-        u=0
-        A={'R':5,'P':1,'N':3,'B':3,'Q':9,'K':50}
-        for i in A:
-            if piece.symbole==i:
-                u=i
-        return A
 
 
-    def jouer_coup(self,ChessGame):
-        meilleur_coup=None
-        meilleur_score=0
-        for coups in Chessgame.obtenir_tous_les_coups(self.couleur):
-            if self.valeur(self.peut_capturer(coups))>meilleur_score:
-                meilleur_coup=self.valeur(self.peut_capturer(coups))
-        return meilleur_score
 
-    def minmaxmet(self,ChessGame,profondeur):
-        if profondeur==0
 
+
+def minmax(self,joueur,profondeur,echiquier):
+        if profondeur==0 or self.echec_et_mat:
+            score=self.evaluer_echiquier(echiquier)
+            return None,None,score
+
+        meilleur_mouvement=None
+        if joueur=='noir':
+            meilleur_score=float('inf')
+        else:
+            meilleur_score = float('-inf')
+        
+        for coup in self.obtenir_tous_les_coups()[0]:
+            depart,arrivee=coup
+            piece_deplacee=echiquier[depart[0]][depart[1]]
+            piece_capturee=echiquier[arrivee[0]][arrivee[1]]
+            
+            echiquier[arrivee[0]][arrivee[1]]=piece_deplacee
+            echiquier[depart[0]][depart[1]]=None
+            score=self.minmax(self.couleur_adverse(joueur),profondeur-1,echiquier)
+
+            echiquier[arrivee[0]][arrivee[1]]=piece_capturee
+            echiquier[depart[0]][depart[1]]=piece_deplacee
+
+            if joueur=='noir':
+                if score< meilleur_score:
+                    meilleur_score = score
+                    meilleur_mouvement= coup
+            else:
+                if score>meilleur_score:
+                    meilleur_score=score
+                    meilleur_mouvement=coup
+        return meilleur_mouvement,meilleur score
 
 
 
             
 
 
-             """
+             
+             
 A=ChessGame()
 A.jouer()
