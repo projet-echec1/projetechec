@@ -27,7 +27,7 @@ class ChessGame():
         
       
 
-        self.virtuel=self.echiquier
+    
 
 
         self.printboard=self.print_board()    
@@ -40,10 +40,6 @@ class ChessGame():
     
 
 
-
-
-    
-    
     def print_board(self):
         a=[]
         for i in range(8):
@@ -129,8 +125,6 @@ class ChessGame():
                     print("Vous êtes en échec")
                 if self.coup_valide(depart,arrivee) is True:
                     self.deplacer_piece(depart, arrivee)
-                    a=self.sauvegarder_etat_echiquier(self.echiquier)
-                    self.virtuel=a
                     self.changement_tour()
                 
                 else:
@@ -140,8 +134,6 @@ class ChessGame():
             else:
                 depart,arrivee=self.minmax('blanc',2,self.echiquier)
                 self.deplacer_piece(depart, arrivee)
-                a=self.sauvegarder_etat_echiquier(self.echiquier)
-                self.virtuel=a
                 self.changement_tour()
                     
         else:
@@ -153,8 +145,6 @@ class ChessGame():
                     print("Vous êtes en échec")
                 if self.coup_valide(depart,arrivee)==True:
                     self.deplacer_piece(depart, arrivee)
-                    a=self.sauvegarder_etat_echiquier(self.echiquier)
-                    self.virtuel=a
                     self.changement_tour()
 
                 else:
@@ -163,8 +153,6 @@ class ChessGame():
             else:
                 depart,arrivee=self.minmax('blanc',2,self.echiquier)
                 self.deplacer_piece(depart, arrivee)
-                a=self.sauvegarder_etat_echiquier(self.echiquier)
-                self.virtuel=a
                 self.changement_tour()
 
         
@@ -254,7 +242,8 @@ class ChessGame():
                                 
         return True
 
-    def coup_valide(self,positiondepart,positionarrivee):
+    def coup_valide(self,positiondepart,positionarrivee,):
+        
         if self.coup_legal(positiondepart,positionarrivee)==True:
             self.deplacer_piece(positiondepart,positionarrivee)
             if self.echec()==True or self.echec_et_mat()==True:
@@ -273,6 +262,12 @@ class ChessGame():
             return True
         else:
             return False
+        
+    
+    def virtuel(self):
+        virt=self.echiquier
+        return virt
+
     
 
 
